@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-deployment
+  namespace: ci-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maven
+      tier: dev
+  template:
+    metadata:
+      labels:
+        app: maven
+        tier: dev
+    spec:
+      containers:
+      - name: maven
+        image: maven:3.6.3-jdk-11
