@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: ci-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+      tier: dev
+  template:
+    metadata:
+      labels:
+        app: jenkins
+        tier: dev
+    spec:
+      containers:
+      - name: jenkins
+        image: jenkins/jenkins:lts
+        
+        ports:
+        - containerPort: 8080  
+      volumes:
+        - name: dev-volume
+          gcePersistentDisk:
+              pdName: wash-datas
+              fsType: ext4
+      
+
